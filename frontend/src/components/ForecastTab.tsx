@@ -84,8 +84,8 @@ export const ForecastTab: React.FC<ForecastTabProps> = ({ products, onRefreshInv
   const handleGenerateReorders = async () => {
     setIsGeneratingReorders(true);
     try {
-      const newRecs = await api.generateReorders();
-      setReorders(Array.isArray(newRecs) ? newRecs : []);
+      await api.generateReorders();
+      await loadRisksAndReorders();
       onRefreshInventory();
     } catch (err: any) {
       setErrorMsg(err.response?.data?.detail || err.message || 'Failed to generate reorders');
@@ -412,36 +412,36 @@ export const ForecastTab: React.FC<ForecastTabProps> = ({ products, onRefreshInv
                         +{rec.recommended_order_qty}
                       </td>
                       <td className="py-2.5 px-3 font-mono text-slate-200">
-                        ₹{Math.round(rec.estimated_cost).toLocaleString()}
+                        ₹{Math.round(rec.estimated_cost ?? (rec as any).estimated_reorder_cost ?? 0).toLocaleString()}
                       </td>
                       <td className="py-2.5 px-3">
                         <span
                           className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                            rec.priority === 'URGENT'
+                            (rec.priority || (rec as any).reorder_priority) === 'URGENT'
                               ? 'bg-rose-500/20 text-rose-300'
                               : 'bg-amber-500/20 text-amber-300'
                           }`}
                         >
-                          {rec.priority}
+                          {rec.priority || (rec as any).reorder_priority || 'NORMAL'}
                         </span>
                       </td>
                       <td className="py-2.5 px-3">
                         <span
                           className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                            rec.status === 'ORDERED'
+                            (rec.status || (rec as any).recommendation_status) === 'ORDERED'
                               ? 'bg-emerald-500/20 text-emerald-300'
-                              : rec.status === 'APPROVED'
+                              : (rec.status || (rec as any).recommendation_status) === 'APPROVED'
                               ? 'bg-blue-500/20 text-blue-300'
-                              : rec.status === 'DISMISSED'
+                              : (rec.status || (rec as any).recommendation_status) === 'DISMISSED'
                               ? 'bg-slate-800 text-slate-400'
                               : 'bg-amber-500/20 text-amber-300'
                           }`}
                         >
-                          {rec.status}
+                          {rec.status || (rec as any).recommendation_status || 'PENDING'}
                         </span>
                       </td>
                       <td className="py-2.5 px-3 text-right space-x-1">
-                        {rec.status === 'PENDING' && (
+                        {(rec.status || (rec as any).recommendation_status || 'PENDING') === 'PENDING' && (
                           <>
                             <button
                               onClick={() => handleUpdateStatus(rec.id, 'APPROVED')}
@@ -457,7 +457,7 @@ export const ForecastTab: React.FC<ForecastTabProps> = ({ products, onRefreshInv
                             </button>
                           </>
                         )}
-                        {rec.status === 'APPROVED' && (
+                        {(rec.status || (rec as any).recommendation_status) === 'APPROVED' && (
                           <button
                             onClick={() => handleUpdateStatus(rec.id, 'ORDERED')}
                             className="px-2 py-1 rounded text-[10px] font-bold bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 transition"

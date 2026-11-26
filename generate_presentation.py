@@ -132,7 +132,90 @@ def create_deck():
     p4.font.color.rgb = RGBColor(148, 163, 184)
 
     # ==========================================
-    # SLIDE 2: PROBLEM STATEMENT & MOTIVATION
+    # SLIDE 2: TEAM ROLES & CONTRIBUTION MATRIX
+    # ==========================================
+    slide_roles = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide_roles, BG_LIGHT)
+    add_header(slide_roles, "Team Roles & Technical Contribution Matrix", "PROJECT RESPONSIBILITIES & DIVISION")
+
+    # Column 1: Harshit Pahuja
+    add_card(slide_roles, 0.8, 1.5, 5.7, 5.4, border_color=PRIMARY)
+    tb_h = slide_roles.shapes.add_textbox(Inches(1.0), Inches(1.7), Inches(5.3), Inches(5.0))
+    tf_h = tb_h.text_frame
+    tf_h.word_wrap = True
+
+    ph_t = tf_h.paragraphs[0]
+    ph_t.text = "Harshit Pahuja (Team Lead)"
+    ph_t.font.size = Pt(18)
+    ph_t.font.bold = True
+    ph_t.font.color.rgb = PRIMARY
+
+    ph_sub = tf_h.add_paragraph()
+    ph_sub.text = "Enrollment: S24CSEU0736 | Core Architecture, Vision & Fusion"
+    ph_sub.font.size = Pt(11)
+    ph_sub.font.color.rgb = TEXT_MUTED
+    ph_sub.space_before = Pt(2)
+
+    harshit_roles = [
+        ("Computer Vision & YOLOv8 Pipeline", "Integrated Ultralytics YOLOv8 architecture for shelf object detection, NMS bounding regression, and front-facing SKU tallies (S_vis)."),
+        ("Overhead CCTV Video Ingestion", "Engineered OpenCV temporal frame sampling (1s-15s intervals) to process 25 FPS video without GPU bottleneck on standard PCs."),
+        ("Physical-Digital Fusion Engine", "Formulated mathematical framework (S_vis, S_book, S_back) and built 4 discrepancy detectors: Restock, Phantom Stock, Shrinkage, and False-Fronting."),
+        ("Async Backend & Database Engine", "Architected FastAPI async lifespan gateway and SQLAlchemy 2.0 dual async/sync pooling for SQLite/PostgreSQL."),
+        ("Verification & Test Automation", "Authored comprehensive test suites across 9 modules achieving 74/74 (100%) automated test pass rate.")
+    ]
+    for r_title, r_desc in harshit_roles:
+        p_rt = tf_h.add_paragraph()
+        p_rt.text = "• " + r_title
+        p_rt.font.size = Pt(12)
+        p_rt.font.bold = True
+        p_rt.font.color.rgb = BG_DARK
+        p_rt.space_before = Pt(6)
+
+        p_rd = tf_h.add_paragraph()
+        p_rd.text = r_desc
+        p_rd.font.size = Pt(10.5)
+        p_rd.font.color.rgb = TEXT_MAIN
+
+    # Column 2: Manan Jain
+    add_card(slide_roles, 6.8, 1.5, 5.7, 5.4, border_color=ACCENT_INDIGO)
+    tb_m = slide_roles.shapes.add_textbox(Inches(7.0), Inches(1.7), Inches(5.3), Inches(5.0))
+    tf_m = tb_m.text_frame
+    tf_m.word_wrap = True
+
+    pm_t = tf_m.paragraphs[0]
+    pm_t.text = "Manan Jain (Team Member)"
+    pm_t.font.size = Pt(18)
+    pm_t.font.bold = True
+    pm_t.font.color.rgb = ACCENT_INDIGO
+
+    pm_sub = tf_m.add_paragraph()
+    pm_sub.text = "Enrollment: S24CSEU0219 | ML Forecasting, Data & Frontend"
+    pm_sub.font.size = Pt(11)
+    pm_sub.font.color.rgb = TEXT_MUTED
+    pm_sub.space_before = Pt(2)
+
+    manan_roles = [
+        ("ML Demand Forecasting Ensemble", "Formulated 60% EMA + 40% WMA hybrid time-series model capturing short-term sales momentum alongside long-term stability."),
+        ("Dynamic Reorder Point (ROP) Optimizer", "Implemented lead-time depletion logic, dynamic safety stock calculations, and automated purchase order recommendations."),
+        ("Synthetic POS Data Engineering", "Designed 90-day stochastic transaction generator (12,391 transactions) modeling lunch/evening peaks, weekend surges, and UPI/Cash splits."),
+        ("Store Owner Command Center UI", "Built responsive React 19 + TypeScript + Vite dashboard with glassmorphic cards and intuitive inventory controls."),
+        ("Interactive Recharts Analytics", "Developed 14-day forecast curves with shaded 80% confidence bands, hourly sales rush graphs, and live alert resolution queue.")
+    ]
+    for r_title, r_desc in manan_roles:
+        p_rt = tf_m.add_paragraph()
+        p_rt.text = "• " + r_title
+        p_rt.font.size = Pt(12)
+        p_rt.font.bold = True
+        p_rt.font.color.rgb = BG_DARK
+        p_rt.space_before = Pt(6)
+
+        p_rd = tf_m.add_paragraph()
+        p_rd.text = r_desc
+        p_rd.font.size = Pt(10.5)
+        p_rd.font.color.rgb = TEXT_MAIN
+
+    # ==========================================
+    # SLIDE 3: PROBLEM STATEMENT & MOTIVATION
     # ==========================================
     slide2 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide2, BG_LIGHT)
@@ -768,7 +851,7 @@ def create_deck():
     pe4.font.color.rgb = ACCENT_AMBER
     pe4.space_before = Pt(14)
 
-    output_path = r"C:\Users\Harshit Pahuja\Desktop\RetailMindAI\RetailMind_AI_Presentation.pptx"
+    output_path = r"C:\Users\Harshit Pahuja\Desktop\RetailMindAI\RetailMind_AI_Presentation_Updated.pptx"
     prs.save(output_path)
     print(f"Presentation saved successfully to: {output_path}")
 
