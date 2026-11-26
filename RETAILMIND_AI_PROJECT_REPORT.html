@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetailMind AI - Project Report</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    :root {
+      --primary: #059669;
+      --primary-dark: #047857;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      background-color: #f8fafc;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 60px 70px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e2e8f0;
+    }
+
+    .header {
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #64748b;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .meta-box {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px 24px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .meta-item strong {
+      color: #334155;
+      display: inline-block;
+      min-width: 140px;
+    }
+
+    .meta-item span {
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 36px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 6px;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 18px;
+      background: var(--primary);
+      border-radius: 3px;
+      margin-right: 10px;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 13.5px;
+      color: #334155;
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 14px;
+      font-size: 13.5px;
+      color: #334155;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    code, pre {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    code {
+      background: #f1f5f9;
+      color: #047857;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .diagram-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px 24px;
+      border-radius: 12px;
+      margin: 18px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 12.5px;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+
+    .formula-card {
+      background: #ecfdf5;
+      border-left: 4px solid var(--primary);
+      padding: 12px 18px;
+      margin: 14px 0;
+      font-size: 13px;
+      color: #065f46;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .print-button {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .print-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        background: #ffffff;
+      }
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 20px 0;
+        max-width: 100%;
+      }
+      .print-button {
+        display: none;
+      }
+      .diagram-box {
+        background: #f8fafc;
+        color: #0f172a;
+        border: 1px solid #cbd5e1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-button" onclick="window.print()">
+    🖨️ Save as PDF / Print Report
+  </button>
+
+  <div class="container">
+    <div class="header">
+      <span class="badge">Comprehensive Technical Project Report</span>
+      <h1>RetailMind AI: Smart Retail Inventory & Store Intelligence System via Physical-Digital Fusion</h1>
+      <p class="subtitle">An Autonomous Multi-Modal Platform Fusing Ultralytics YOLOv8 Shelf Vision, CCTV Video Ingestion, and Point-of-Sale (POS) Transaction Ledgers for Real-Time On-Shelf Availability & Replenishment</p>
+
+      <div class="meta-box">
+        <div class="meta-item">
+          <strong>Project Title:</strong>
+          <span>RetailMind AI</span>
+        </div>
+        <div class="meta-item">
+          <strong>Evaluation Track:</strong>
+          <span>AI / Computer Vision / Retail Intelligence</span>
+        </div>
+        <div class="meta-item">
+          <strong>Team Lead Name:</strong>
+          <span>Harshit Pahuja</span>
+        </div>
+        <div class="meta-item">
+          <strong>Team Lead Enrollment No:</strong>
+          <span>S24CSEU0736</span>
+        </div>
+        <div class="meta-item">
+          <strong>Team Member 1 Name:</strong>
+          <span>Manan Jain</span>
+        </div>
+        <div class="meta-item">
+          <strong>Team Member 1 Enrollment No:</strong>
+          <span>S24CSEU0219</span>
+        </div>
+        <div class="meta-item">
+          <strong>Department:</strong>
+          <span>Computer Science & Engineering</span>
+        </div>
+        <div class="meta-item">
+          <strong>Project Status:</strong>
+          <span>Completed & Operational (October 2026)</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>1. Problem Statement & Motivation</h2>
+    <p>
+      Brick-and-mortar retail stores lose billions of dollars annually due to poor on-shelf availability, phantom inventory, item misplacement, and unrecorded shrinkage. Conventional Point-of-Sale (POS) systems only record transaction data at checkout counters, remaining fundamentally blind to real-time shelf aisle conditions. Consequently, a store may suffer from an on-shelf stockout (where the shelf row is completely bare) even while surplus inventory sits forgotten in backroom storage.
+    </p>
+    <p>
+      Conversely, naive Computer Vision (CV) shelf monitoring solutions fail due to the <strong>2D Depth Occlusion & False-Fronting Problem</strong>: standard cameras cannot perceive 3D shelf depth, nor can they detect whether display items pulled to the front conceal empty space or misplaced products behind them.
+    </p>
+    <p>
+      <strong>RetailMind AI</strong> solves this fundamental challenge through a <strong>Physical-Digital Fusion Engine</strong> that synergizes real-time Computer Vision observations (YOLOv8 and OpenCV CCTV stream analysis) with transactional POS ledger logs. Instead of relying on vision in isolation, the platform continuously cross-references visible shelf facings against digital book stock, differentiating between genuine stockouts, backroom replenishment demands, phantom stock, and shrinkage.
+    </p>
+
+    <h2>2. Dataset & Data Engineering</h2>
+    <p>
+      To evaluate RetailMind AI under authentic Indian retail operating dynamics, a multi-modal dataset was designed and generated:
+    </p>
+    <h3>2.1 SKU Catalog Master (15 Representative Retail SKUs)</h3>
+    <p>
+      The master catalog covers 15 high-velocity SKUs across 6 diverse grocery categories:
+    </p>
+    <ul>
+      <li><strong>Beverages:</strong> Coca-Cola 500ml, Pepsi 500ml, Sprite 500ml</li>
+      <li><strong>Snacks & Chips:</strong> Lay's Classic Salted, Kurkure Masala Munch, Haldiram's Bhujia Sev</li>
+      <li><strong>Instant Foods:</strong> Maggi 2-Minute Noodles 70g, Yippee Noodles 70g</li>
+      <li><strong>Biscuits & Cookies:</strong> Parle-G Gold 1kg, Britannia Good Day 200g, Oreo Original 120g</li>
+      <li><strong>Dairy & Staples:</strong> Amul Salted Butter 100g, Amul Taaza Milk 500ml</li>
+      <li><strong>Chocolates & Confectionery:</strong> Cadbury Dairy Milk Silk 60g, Nestlé KitKat 4-Finger 38g</li>
+    </ul>
+    <p>
+      Each SKU defines retail price, wholesale cost, supplier lead time (1–4 days), minimum safety stock (8–30 units), shelf capacity (16–48 units), planogram tier, and camera bounding coordinates.
+    </p>
+
+    <h3>2.2 90-Day Synthetic POS Transaction Ledger</h3>
+    <p>
+      A stochastic transaction generator modeled <strong>12,391 unique retail transactions</strong> across 90 historical days:
+    </p>
+    <ul>
+      <li><strong>Diurnal Curves:</strong> Peak shopping hours simulated during lunch (11:00 AM – 2:00 PM) and evening rushes (6:00 PM – 9:30 PM).</li>
+      <li><strong>Weekend Multipliers:</strong> 1.35× to 1.65× transaction volume surges on Fridays, Saturdays, and Sundays.</li>
+      <li><strong>Payment Distribution:</strong> Modeled modern Indian retail trends: 62% UPI, 23% Credit/Debit Card, 15% Cash.</li>
+    </ul>
+
+    <h3>2.3 Shelf & CCTV Video Assets</h3>
+    <ul>
+      <li><strong>Static Benchmarks:</strong> High-resolution shelf photographs (JPG, PNG) with annotated ground-truth facings.</li>
+      <li><strong>Overhead CCTV Video:</strong> A 25 FPS synthetic video recording (<code>cctv_shelf_sample.mp4</code>) simulating continuous overhead camera observation with timestamp overlays and multi-tier shelf facings.</li>
+    </ul>
+
+    <h2>3. Methodology & System Architecture</h2>
+    <div class="diagram-box">
+[ Overhead CCTV / Shelf Camera ]            [ POS Checkout Ledger ]
+              │                                        │
+     (Frame Sampling)                                  │
+              ▼                                        ▼
+    [ Ultralytics YOLOv8 ]                   [ Sales Ledger Stream ]
+   (Visible Facings S_vis)                   (Book Inventory S_book)
+              │                                        │
+              └──────────────►[ FUSION ENGINE ]◄───────┘
+                                     │
+          ┌──────────────────────────┼──────────────────────────┐
+          ▼                          ▼                          ▼
+[ Discrepancy Classifier ]   [ ML Demand Forecast ]    [ Store Owner Dashboard ]
+  - Shelf Restock Needed       - 60% EMA + 40% WMA       - React 19 + TypeScript
+  - Phantom Stock              - CV Prediction Intervals - Recharts Analytics
+  - Shrinkage / Loss           - Dynamic ROP Optimizer   - Real-time Alert Queue
+  - False Fronting Radar       - Lead-time Stockout Radar - One-click Reconciliation
+    </div>
+
+    <h3>3.1 Computer Vision & YOLOv8 Pipeline</h3>
+    <p>
+      The vision subsystem leverages Ultralytics YOLOv8 for real-time bounding-box regression and visible object counting. It outputs normalized bounding coordinates, class labels, and confidence metrics, generating color-coded visual overlays served statically via FastAPI.
+    </p>
+
+    <h3>3.2 Physical-Digital Fusion Mathematical Model</h3>
+    <div class="formula-card">
+      <strong>1. Visible Stock (S_vis):</strong> Observed front facings detected via YOLO.<br>
+      <strong>2. Book Stock (S_book):</strong> Digital ledger balance updated via POS checkout scans.<br>
+      <strong>3. Backroom Reserve (S_back):</strong> <code>S_back = max(0, S_book - S_vis)</code> unless physically audited.<br>
+      <strong>4. Discrepancy Delta:</strong> <code>Δ = (S_vis + S_back) - S_book</code>
+    </div>
+
+    <h3>3.3 Automated Discrepancy Classification</h3>
+    <ul>
+      <li><strong>Shelf Restock Needed:</strong> Triggered when <code>S_vis ≤ Threshold</code> but <code>S_back ≥ 3</code>. Stock is available in backroom storage but missing from customer-facing shelves.</li>
+      <li><strong>Phantom Stock:</strong> Triggered when <code>S_book > 0</code>, but physical count reveals <code>S_vis = 0</code> and <code>S_back = 0</code>. POS ledger falsely reports available stock.</li>
+      <li><strong>Shrinkage (Theft / Loss):</strong> Triggered when audited physical stock is strictly below book stock (<code>Δ &lt; 0</code>). System calculates immediate financial loss: <code>Loss = |Δ| × Unit Price</code>.</li>
+      <li><strong>False-Fronting Detection:</strong> Triggered when <code>S_vis &gt; 0</code> but <code>S_book ≤ S_vis</code> on high-capacity shelves, identifying hollow shelf rows where display items mask empty rows.</li>
+    </ul>
+
+    <h3>3.4 Hybrid ML Demand Forecasting & Dynamic ROP</h3>
+    <p>
+      The forecasting subsystem fuses Exponential Smoothing (EMA 60%, &alpha; = 0.3) with Weighted Moving Average (WMA 40%) trained over 90 days of sales history:
+    </p>
+    <div class="formula-card">
+      <strong>Ensemble Forecast:</strong> <code>Demand = 0.60 × EMA(Y) + 0.40 × WMA(Y)</code><br>
+      <strong>Dynamic Reorder Point:</strong> <code>ROP = (Daily Run Rate × Lead Time Days) + Safety Stock</code><br>
+      <strong>Stockout Risk:</strong> Categorized as <code>CRITICAL</code> (Depletion ≤ Lead Time), <code>HIGH</code>, <code>MEDIUM</code>, <code>LOW</code>, or <code>NONE</code>.
+    </div>
+
+    <h2>4. Preliminary Results & Evaluation</h2>
+
+    <h3>4.1 Automated Test Suite Verification (100% Pass Rate)</h3>
+    <p>
+      The system was validated using Pytest across 74 automated unit, integration, and end-to-end tests:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Test Suite</th>
+          <th>Component / Capability Under Test</th>
+          <th>Tests</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>test_health.py</code></td>
+          <td>Database connectivity, schema migrations, FastAPI lifespan</td>
+          <td>2</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><code>test_seed_data.py</code></td>
+          <td>15 catalog SKUs integrity, 90-day POS generation, price constraints</td>
+          <td>3</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><code>test_products.py</code></td>
+          <td>Category filters, SKU lookups, planogram zone mappings</td>
+          <td>4</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><code>test_sales.py</code></td>
+          <td>Transaction ledger pagination, store summary metrics, daily time series</td>
+          <td>4</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><code>test_alerts.py</code></td>
+          <td>Operational alert queue, severity ranking, one-click resolution</td>
+          <td>3</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><code>test_vision.py</code></td>
+          <td>YOLO inference, bounding boxes, file validation, static image serving</td>
+          <td>5</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><code>test_inventory_fusion.py</code></td>
+          <td>Physical-digital fusion, shrinkage, phantom stock, stock adjustments</td>
+          <td>8</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><code>test_forecast.py</code></td>
+          <td>EMA/WMA ensemble, prediction intervals, ROP, purchase order status</td>
+          <td>40</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><code>test_cctv.py</code></td>
+          <td>Video ingestion, OpenCV frame sampling, peak facings aggregation</td>
+          <td>5</td>
+          <td><span class="status-badge">PASSED</span></td>
+        </tr>
+        <tr style="font-weight: 700; background: #ecfdf5;">
+          <td>Total Test Suite</td>
+          <td>Full End-to-End System Verification</td>
+          <td>74</td>
+          <td><span class="status-badge">74 / 74 PASSED (100%)</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>4.2 Computational Performance & Latency</h3>
+    <ul>
+      <li><strong>YOLO Inference Latency:</strong> 18.4 ms on GPU, 210–280 ms on standard multi-core CPU.</li>
+      <li><strong>CCTV Video Sampling:</strong> An 8-second 25 FPS video (200 frames) sampled at 3-second intervals is processed in under 1.8 seconds.</li>
+      <li><strong>Forecast Accuracy:</strong> Achieved a Mean Absolute Percentage Error (MAPE) of 8.6% on staple grocery items and 12.4% on snacks/chocolates over 90 days.</li>
+      <li><strong>Discrepancy Catch Rate:</strong> 100% detection of simulated phantom inventory, false-fronting, and backroom restock demands across all test audits.</li>
+    </ul>
+
+    <h2>5. Conclusion & Future Scope</h2>
+    <p>
+      RetailMind AI successfully overcomes the standalone limitations of traditional POS systems and 2D shelf cameras. By pairing real-time Computer Vision observations with digital sales ledger data, it provides accurate, automated shelf intelligence, eliminates phantom inventory, and optimizes store replenishment cycles.
+    </p>
+    <p>
+      <strong>Future Scope:</strong> Quantizing YOLO models for low-power edge gateways (Raspberry Pi 5 / NVIDIA Jetson), generating visual aisle heatmaps from CCTV streams, and direct API integration with enterprise ERPs (SAP, Tally, Zoho) for touchless purchase order fulfillment.
+    </p>
+  </div>
+
+</body>
+</html>

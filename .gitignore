@@ -1,0 +1,71 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environments & Secrets
+.env
+!.env.example
+
+# SQLite Databases
+*.db
+*.sqlite3
+*.sqlite
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ML Weights & Checkpoints (large binary models)
+*.pt
+*.onnx
+backend/ml_weights/*.pt
+backend/ml_weights/*.onnx
+!backend/ml_weights/.gitkeep
+
+# Generated Outputs & Temporary Results
+results/
+test.mp4
+
+# Node & Frontend (for upcoming phases)
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
